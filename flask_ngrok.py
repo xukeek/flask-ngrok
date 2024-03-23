@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import time
 import zipfile
+import tarfile
 from pathlib import Path
 from threading import Timer
 
@@ -57,8 +58,14 @@ def _download_ngrok(ngrok_path):
     else:
         raise Exception(f"{system} is not supported")
     download_path = _download_file(url)
-    with zipfile.ZipFile(download_path, "r") as zip_ref:
-        zip_ref.extractall(ngrok_path)
+    # if file is tgz unzip
+    if url.endswith("tgz"):
+        tar = tarfile.open("example.tar.gz", "r:gz")
+        tar.extractall(ngrok_path)
+        tar.close()
+    else:
+        with zipfile.ZipFile(download_path, "r") as zip_ref:
+            zip_ref.extractall(ngrok_path)
 
 
 def _download_file(url):
@@ -91,4 +98,5 @@ def run_with_ngrok(app):
         thread.setDaemon(True)
         thread.start()
         old_run(*args, **kwargs)
+
     app.run = new_run
