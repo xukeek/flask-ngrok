@@ -60,7 +60,7 @@ def _download_ngrok(ngrok_path):
     download_path = _download_file(url)
     # if file is tgz unzip
     if url.endswith("tgz"):
-        tar = tarfile.open("example.tar.gz", "r:gz")
+        tar = tarfile.open(download_path, "r:gz")
         tar.extractall(ngrok_path)
         tar.close()
     else:
