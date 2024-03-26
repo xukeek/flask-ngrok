@@ -54,7 +54,7 @@ def _download_ngrok(ngrok_path):
     elif system == "Windows":
         url = "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip"
     elif system == "Linux":
-        url = "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz"
+        url = "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz"
     else:
         raise Exception(f"{system} is not supported")
     download_path = _download_file(url)
